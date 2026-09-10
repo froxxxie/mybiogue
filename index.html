@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Blog guweh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+	<style>
+		body {
+			max-width: 760px;
+			margin: 0 auto;
+			padding: 24px;
+			color: #9c9c9c;
+			background: #706b6b;
+            font: 16px/1.6 "Playfair Display", serif;
+		}
+		header, article, footer {
+			background: #994a15;
+			border: 2px solid #7e4700;
+			border-radius: 10px;
+			box-shadow: 0 4px 12px rgba(99, 39, 0, 0.08);
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+		h1, h2 { font-weight: normal; }
+		h1 { margin-top: 0; }
+		.profile-picture {
+            width: 128px;
+            height: 128px;
+			border-radius: 0;
+			object-fit: cover;
+            border: 0;
+            flex: 0 0 auto;
+        }
+        .profile-main {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .profile-details {
+            min-width: 0;
+            height: 128px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+		}
+        .profile-details h1 {
+            margin: 0 0 2px;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .profile-details p {
+            margin: 2px 0;
+            line-height: 1.25;
+        }
+		nav a { color: #800000; margin-right: 16px; }
+		time { color: #460000; font-size: 0.9em; }
+		footer { color: #777; font-size: 0.9em; }
+		.comments h2 { margin-top: 0; }
+        .comments, .comments * { font-family: Arial, sans-serif; }
+            .music-player {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                width: min(100%, 360px);
+                margin: 0 auto 20px;
+                padding: 10px 12px;
+                color: #fff;
+                background: rgba(38, 0, 0, .88);
+                border: 2px solid rgba(0, 0, 0, .7);
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+            }
+            .music-player__art {
+                width: 52px;
+                height: 52px;
+                flex: 0 0 52px;
+                border: 1px solid #000;
+                object-fit: cover;
+                filter: none;
+            }
+            .music-player__main { min-width: 0; flex: 1; }
+            .music-player__title {
+                display: block;
+                overflow: hidden;
+                font: 700 13px/1.2 Arial, sans-serif;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .music-player__meta {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 5px;
+                font: 11px Arial, sans-serif;
+            }
+            .music-player__progress {
+                width: 100%;
+                height: 4px;
+                accent-color: #000;
+                cursor: pointer;
+            }
+            .music-player__button {
+                display: grid;
+                place-items: center;
+                width: 38px;
+                height: 38px;
+                flex: 0 0 38px;
+                padding: 0;
+                border: 2px solid #000;
+                border-radius: 50%;
+                color: #fff;
+                background: #8b1010;
+                font-size: 16px;
+                line-height: 1;
+                text-align: center;
+                text-indent: 2px;
+                cursor: pointer;
+            }
+            .music-player__button:hover { background: #b51b1b; }
+            @media (max-width: 420px) {
+                .music-player { width: 100%; }
+            }
+		.comment-form label { display: block; margin-top: 12px; font-weight: bold; }
+		.comment-form input, .comment-form textarea {
+			box-sizing: border-box;
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #999999;
+			border-radius: 6px;
+			font: inherit;
+		}
+		.comment-form textarea { min-height: 100px; resize: vertical; }
+		.comment-form button {
+			margin-top: 14px;
+			padding: 10px 16px;
+			border: 0;
+			border-radius: 6px;
+			color: #c4a0a0;
+			background: #500000b9;
+			cursor: pointer;
+		}
+		.comment { padding: 12px 0; border-bottom: 1px solid #e1e6eb; }
+		.comment:last-child { border-bottom: 0; }
+		.comment strong { margin-right: 8px; }
+		.comment time { color: #fafafa48; }
+		.profile-info {
+			display: flex;
+			align-items: center;
+			gap: 18px;
+		}
+		.profile-info h1 {
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+<div class="blood-drips" aria-hidden="true">
+    <span class="blood-stream drip-1"></span>
+    <span class="blood-stream drip-2"></span>
+    <span class="blood-stream drip-3"></span>
+    <span class="blood-stream drip-4"></span>
+    <span class="blood-stream drip-5"></span>
+    <span class="blood-stream drip-6"></span>
+</div>
+	<header class="profile-header">
+    <div class="profile-main">
+        <img
+            class="profile-picture"
+            src="https://i.ibb.co.com/q325fx7J/Save-Vid-Net-728685195-18324209953257608-737299449507673118-n.jpg"
+            alt="Foto wong tampan">
+
+        <div class="profile-details">
+            <h1>Wildan Alfarizky</h1>
+            <p>I am who i am, Am i who i am not?</p>
+            <p>Age: 18 · Gender: Male · Country: Indonesia</p>
+        </div>
+    </div>
+
+    <nav class="profile-nav" aria-label="Navigasi utama">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="https://www.instagram.com/deepfryeezy/" target="_blank" rel="noopener">
+            Instagram
+        </a>
+    </nav>
+</header>
+
+	<main id="home">
+		<article>
+			<h2><b>Selamat Datang.</b></h2>
+			<p>Hi there!</p>
+			<p>Di blog ini, gw akan menceritakan sedikit bagian dari diri gw sendiri.</p>
+			<p>So if you want to know me better, just slide into my dms!</p>
+			<br>
+			<style>
+.kumpulan-gambar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.kumpulan-gambar img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px;
+    overflow-x: hidden;
+}
+
+header,
+article,
+.comments {
+    width: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    header,
+    article,
+    .comments {
+        padding: 15px;
+    }
+
+    .profile-info {
+        gap: 10px;
+    }
+
+    .profile-picture {
+            width: 110px;
+            height: 110px;
+            border: 0;
+    }
+
+    .profile-main {
+        gap: 14px;
+    }
+
+    .profile-details {
+        height: 110px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    .profile-details h1 {
+        font-size: 25px;
+    }
+
+    .kumpulan-gambar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+}
+
+@media (min-width: 601px) {
+    .kumpulan-gambar {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+			</style>
+
+    <section class="music-player" aria-label="Pemutar musik Grind - Alice In Chains">
+        <img
+            class="music-player__art"
+            src="https://en.wikipedia.org/wiki/Special:FilePath/Alice_in_Chains_(album).jpg"
+            alt="Cover album Alice in Chains (1995)">
+        <div class="music-player__main">
+            <strong class="music-player__title">Grind - Alice In Chains</strong>
+            <div class="music-player__meta">
+                <span class="music-player__current">0:00</span>
+                <input class="music-player__progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Posisi lagu">
+                <span class="music-player__duration">0:00</span>
+            </div>
+        </div>
+        <button class="music-player__button" type="button" aria-label="Putar musik" aria-pressed="false">&#9654;</button>
+    </section>
+
+  <div class="kumpulan-gambar">
+    <img src="https://i.pinimg.com/1200x/c7/26/28/c7262802781f497a55b99ea88ce400d6.jpg" alt="Gambar 1"/>
+    <img src="https://i.pinimg.com/736x/a6/ce/19/a6ce19b5fb6163efdbe97d4251c7b747.jpg" alt="Gambar 2"/>
+    <img src="https://i.pinimg.com/736x/14/45/db/1445db341b2949e214518b1fdf0ed740.jpg" alt="Gambar 3"/>
+    <img src="https://i.pinimg.com/1200x/40/2a/53/402a53cb06c7ea30cb31513841c963af.jpg" alt="Gambar 4"/>
+    <img src="https://i.pinimg.com/1200x/89/1f/79/891f79cf06adab9ce3d54379568f3ea0.jpg" alt="Gambar 5"/>
+    <img src="https://i.pinimg.com/736x/bf/ff/af/bfffaf01d5cf4e12e8607278de7a155f.jpg" alt="Gambar 6"/>
+  </div>
+		</article>
+
+		<article>
+			<h2><b>About Me</b></h2>
+			<time datetime="2025-01-08">September 09, 2026</time>
+			<p>Gw wildan, biasa dipanggil dan, tapi gw sendiri lebih suka dipanggil wil. <br> Im an extrovert, not much of a convokiller kalo lu asik! <br> Music eunthusiast, guitar, bass, motorcycle. <br> Gw suka banget ngomongin tentang kehidupan, filosofi, musik, isu sosial, dan lain semacamnya! <br> Dan selalu, gw bisa nikmatin hal-hal kecil yang ada di kehidupan gw. Mungkin bagi kalian gw ini orangnya ngebosenin, so whatever, its not like i give a single damn about it.</p>
+			<p>Live your own life and stay YOLO!</p>
+		</article>
+
+		<article id="about">
+			<h2><b>Interests</b></h2>
+			<p><strong>An ode to self destruction.</strong> <br> Ibarat mesin yang butuh bahan bakar, gitulah gw. Paru paru yang jadi karburator, menghisap segala asap polutan metropolitan dan <b>Rokok lintingan</b>, lungs full of nicotine stain. <b>Kopi arabika</b> dosis gila yang jadi bensin kehidupan gw, sekali ngopi 2 bungkus liong pait dijadiin 1 gelas auto gemeter tremor semangat kek orang overdosis sabu.  <b>Ciu pinggir jalan</b> yang jadi air radiator gw, nenangin pikiran yang brisik bgt kek toa masjid sebelah rumah. <br> Tanpa semua itu, mungkin hidup gw bakal hambar bet anjay kek hiduplu pada.</p>
+			<p><strong>Musik.</strong> <br> Musik selalu jadi safe place buat gw, banyak perjalanan hidup gw yang selalu ditemenin sama musik. <br> So heres my favorite: </p>
+			<box>
+				<p>&middot; Alice In Chains <br> &middot; Creed <br>&middot; Nirvana <br>&middot; Stone Temple Pilots <br>&middot; Pulp <br>&middot; Audioslave <br>&middot; Soundgarden <br></p>
+			</box>
+            <p><strong>Games.</strong> <br> Gw ga terlalu banyak main game sih, paling enjoy game yang fun dan ga terlalu kompetitif, lagi juga bagi gw buat apa main game di seriusin banget. Bukanya fun malah stress kaya orang rungkat judol. <br> Ni game yang gw mainin: <br> &middot; Minecraft <br> &middot; Terraria (Agak kaya tai ni game) <br> &middot; Stardew Valley <br> &middot; Metal Slug (Ini juga) <br> &middot; Contra (ini apalagi)<br> &middot; NFS Most Wanted <br> &middot; Gamehouse jadul <br> &middot; Pony Town </p>
+			<p><strong>Motorcycle.</strong> <br> Motor, Gw suka banget motoran, yaa walaupun muter muter gajelas doang sih. Tapi dengan itu gw bisa ngerasa tenang dan ngerasa bebas. Gaperlu motor yang hedon atau keren kayak chopper, dan gaperlu harley buat keliatan keren, mau lu bawa supra galon sekalipun kalo lu enjoy ya udah keren jir. Ada beberapa motor yang nemenin momen spesial di hidup gw dan gaakan pernah bisa gw lupain.</p>
+			<p><strong>Movies.</strong> <br> Ga terlalu into banget sih, tapi gw nonton beberapa film kayak:</p>
+			<box>&middot; Terminator (Tamat) <br> &middot; Pulp fiction <br> &middot; Dont be a menace in a south park apalah <br> &middot; 100 Things i hate about you <br> &middot; Small soldier <br> &middot; Fist Blood, Rambo <br> &middot; Big stan <br> &middot; 9 <br>&middot; Coraline <br>  </box>
+		</article>
+	</main>
+
+	<section class="comments" aria-labelledby="comments-heading">
+		<h2 id="comments-heading">Comments</h2>
+		<p>Leave a comment without creating an account.</p>
+		<form class="comment-form" id="comment-form">
+			<label for="comment-name">Name</label>
+			<input id="comment-name" name="name" type="text" maxlength="60" placeholder="Your name" required>
+			<label for="comment-text">Comment</label>
+			<textarea id="comment-text" name="comment" maxlength="500" placeholder="Write a comment..." required></textarea>
+			<button type="submit">Post comment</button>
+		</form>
+		<div id="comment-list" aria-live="polite"></div>
+	</section>
+	<script>
+		const form = document.getElementById('comment-form');
+		const list = document.getElementById('comment-list');
+		const comments = JSON.parse(localStorage.getItem('alex-blog-comments') || '[]');
+
+		function renderComments() {
+			list.replaceChildren(...comments.map(comment => {
+				const item = document.createElement('div');
+				item.className = 'comment';
+				item.innerHTML = `<strong></strong><time></time><p></p>`;
+				item.querySelector('strong').textContent = comment.name;
+				item.querySelector('time').textContent = comment.date;
+				item.querySelector('p').textContent = comment.text;
+				return item;
+			}));
+		}
+
+		form.addEventListener('submit', event => {
+			event.preventDefault();
+			const data = new FormData(form);
+			comments.unshift({
+				name: data.get('name').trim(),
+				text: data.get('comment').trim(),
+				date: new Date().toLocaleDateString()
+			});
+			localStorage.setItem('alex-blog-comments', JSON.stringify(comments));
+			form.reset();
+			renderComments();
+		});
+
+		renderComments();
+	</script>
+
+    <audio id="background-music" loop preload="auto">
+        <source src="assets/Grind_spotdown.org.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        const backgroundMusic = document.getElementById('background-music');
+        const musicButton = document.querySelector('.music-player__button');
+        const musicProgress = document.querySelector('.music-player__progress');
+        const musicCurrent = document.querySelector('.music-player__current');
+        const musicDuration = document.querySelector('.music-player__duration');
+
+        function formatTime(seconds) {
+            if (!Number.isFinite(seconds)) return '0:00';
+            const minutes = Math.floor(seconds / 60);
+            return `${minutes}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
+        }
+
+        function updateMusicButton() {
+            const isPlaying = !backgroundMusic.paused;
+            musicButton.textContent = isPlaying ? '\u275a\u275a' : '\u25b6';
+            musicButton.setAttribute('aria-label', isPlaying ? 'Jeda musik' : 'Putar musik');
+            musicButton.setAttribute('aria-pressed', String(isPlaying));
+        }
+
+        musicButton.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.muted = false;
+                backgroundMusic.play().catch(() => {});
+            } else {
+                backgroundMusic.pause();
+            }
+            updateMusicButton();
+        });
+        backgroundMusic.addEventListener('loadedmetadata', () => {
+            musicDuration.textContent = formatTime(backgroundMusic.duration);
+        });
+        backgroundMusic.addEventListener('timeupdate', () => {
+            musicCurrent.textContent = formatTime(backgroundMusic.currentTime);
+            musicProgress.value = backgroundMusic.duration ? (backgroundMusic.currentTime / backgroundMusic.duration) * 100 : 0;
+        });
+        backgroundMusic.addEventListener('play', updateMusicButton);
+        backgroundMusic.addEventListener('pause', updateMusicButton);
+        musicProgress.addEventListener('input', () => {
+            if (backgroundMusic.duration) backgroundMusic.currentTime = (musicProgress.value / 100) * backgroundMusic.duration;
+        });
+        updateMusicButton();
+    </script>
+
+<!-- SpaceHey layout adapted for this blog. -->
+<style>
+	body {
+		background: #cd7542 url('https://i.pinimg.com/1200x/e7/ef/c2/e7efc29563a221f0532bff2cc6205df7.jpg') center/cover fixed;
+		color: #000;
+	}
+	body::before {
+		content: "";
+		position: fixed;
+		inset: -110% -50%;
+		width: 300%;
+		height: 300%;
+		background: url('https://i.stack.imgur.com/sIIwU.gif');
+		opacity: .1;
+		pointer-events: none;
+		z-index: -1;
+		filter: contrast(110%);
+	}
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.18'/%3E%3C/svg%3E"),
+            rgba(0, 0, 0, .35);
+        background-size: 140px 140px, auto;
+        mix-blend-mode: multiply;
+    }
+	header, article, .comments, footer {
+		border-color: rgba(80, 28, 8, 0.945);
+        background: linear-gradient(180deg, rgba(189, 189, 189, .42) 0%, rgba(139, 69, 19, .72) 8%, rgba(160, 82, 45, .82) 20%, rgba(160, 82, 45, .82) 80%, rgba(107, 47, 22, .72) 92%, rgba(189, 189, 189, .42) 100%);
+        border-radius: 0;
+        box-shadow: inset 1px 1px 0 rgba(255, 190, 120, .35), inset -1px -1px 0 rgba(40, 0, 0, .55), 4px 4px 0 rgba(40, 0, 0, .35);
+	}
+    .music-player {
+        color: #000;
+        background: linear-gradient(180deg, #f0f0f0 0%, #c8c8c8 24%, #a2a2a2 76%, #dedede 100%);
+        border: 2px solid #000;
+        border-radius: 0;
+        box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #666, 4px 4px 0 rgba(0, 0, 0, .35);
+    }
+    .music-player__button {
+        color: #000;
+        background: linear-gradient(180deg, #e4e4e4 0%, #888 100%);
+    }
+    .music-player__button:hover { background: linear-gradient(180deg, #f0f0f0 0%, #999 100%); }
+    .music-player__progress {
+        appearance: none;
+        height: 10px;
+        accent-color: #a2a2a2;
+        background: linear-gradient(180deg, #f0f0f0 0%, #c8c8c8 24%, #a2a2a2 76%, #dedede 100%);
+        border: 1px solid #666;
+        border-radius: 999px;
+        box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #888;
+    }
+    .music-player__progress::-webkit-slider-thumb {
+        appearance: none;
+        width: 18px;
+        height: 10px;
+        border: 1px solid #000;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #e4e4e4 0%, #888 100%);
+        box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #666;
+        cursor: pointer;
+    }
+    .music-player__progress::-moz-range-thumb {
+        width: 18px;
+        height: 10px;
+        border: 1px solid #000;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #e4e4e4 0%, #888 100%);
+        box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #666;
+        cursor: pointer;
+    }
+	@font-face {
+    font-family: "Marlboro";
+        src: url("Font/Marlboro.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+header .profile-info h1 {
+    font-family: "Marlboro", Georgia, serif !important;
+}
+
+header h1 {
+		font-family: "Marlboro", sans-serif;
+		font-weight: 100;
+		font-size: 28px;
+		color: #000000;
+	}
+	header, article, .comments, footer { color: #000; }
+	a, a:visited, a:hover { color: #000; }
+    footer { background: linear-gradient(180deg, rgba(189, 189, 189, .42) 0%, rgba(139, 69, 19, .72) 10%, rgba(160, 82, 45, .82) 22%, rgba(160, 82, 45, .82) 78%, rgba(107, 47, 22, .72) 90%, rgba(189, 189, 189, .42) 100%); }
+	.comments {
+		border: 2px solid rgba(0, 0, 0, .7);
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+    .comment-form input, .comment-form textarea, .comment-form button { border-radius: 0; }
+	.comment { border-bottom-color: #000; }
+	body,
+body * {
+    cursor: url('https://cdn.cursors-4u.net/previews/revolver-b246a5a3-32.webp') 34 32, auto !important;
+}
+.blood-drips {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.blood-stream {
+    position: absolute;
+    top: -2px;
+    width: var(--width);
+    height: 0;
+    background:
+        linear-gradient(90deg, #260000 0%, #7b0909 42%, #bd2929 56%, #3a0000 100%);
+    border-radius: 0 0 48% 52%;
+    box-shadow:
+        inset 2px 0 2px rgba(255, 80, 80, .2),
+        2px 3px 5px rgba(20, 0, 0, .7);
+    opacity: .95;
+    animation: blood-grow var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.blood-stream::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 7px);
+    bottom: -13px;
+    width: 14px;
+    height: 22px;
+    background: radial-gradient(
+        ellipse at 35% 25%,
+        #d94a4a 0 8%,
+        #921010 40%,
+        #350000 100%
+    );
+    border-radius: 48% 52% 55% 45%;
+    box-shadow: 2px 3px 5px rgba(25, 0, 0, .8);
+}
+
+.blood-stream::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -55px;
+    width: 8px;
+    height: 14px;
+    background: radial-gradient(circle at 35% 25%, #c93434, #650606 65%, #260000);
+    border-radius: 50% 50% 55% 45%;
+    opacity: 0;
+    animation: blood-drop var(--drop-speed) ease-in infinite;
+    animation-delay: var(--delay);
+}
+
+.drip-1 {
+    left: max(5px, calc(50% - 390px));
+    --width: 13px;
+    --speed: 8s;
+    --drop-speed: 8s;
+    --delay: 0s;
+}
+
+.drip-2 {
+    left: max(23px, calc(50% - 365px));
+    --width: 7px;
+    --speed: 11s;
+    --drop-speed: 11s;
+    --delay: 2.8s;
+}
+
+.drip-3 {
+    left: max(42px, calc(50% - 345px));
+    --width: 17px;
+    --speed: 9.5s;
+    --drop-speed: 9.5s;
+    --delay: 5s;
+}
+
+.drip-4 {
+    right: max(5px, calc(50% - 390px));
+    --width: 15px;
+    --speed: 10s;
+    --drop-speed: 10s;
+    --delay: 1.5s;
+}
+
+.drip-5 {
+    right: max(24px, calc(50% - 365px));
+    --width: 8px;
+    --speed: 12s;
+    --drop-speed: 12s;
+    --delay: 4s;
+}
+
+.drip-6 {
+    right: max(45px, calc(50% - 345px));
+    --width: 19px;
+    --speed: 9s;
+    --drop-speed: 9s;
+    --delay: 6s;
+}
+
+header,
+main,
+.comments {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes blood-grow {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    8% {
+        opacity: .95;
+    }
+    65% {
+        height: 55vh;
+        opacity: .95;
+    }
+    88% {
+        height: 75vh;
+        opacity: .8;
+    }
+    100% {
+        height: 82vh;
+        opacity: 0;
+    }
+}
+
+@keyframes blood-drop {
+    0%, 58% {
+        opacity: 0;
+        transform: translateY(-10px) scale(.5);
+    }
+    68% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(65vh) scale(.8);
+    }
+}
+</style>
+</body>
+</html>
